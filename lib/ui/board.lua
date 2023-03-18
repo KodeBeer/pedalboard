@@ -11,6 +11,8 @@ local OptionalPedals = include("lib/ui/util/optional_pedals")
 
 -- All possible pedals, ordered by something like how common they are
 local pedal_classes = {
+  include("lib/ui/pedals/pitch_shifter"),
+  include("lib/ui/pedals/pitch_shifter2"),
   include("lib/ui/pedals/delay"),
   include("lib/ui/pedals/reverb"),
   include("lib/ui/pedals/overdrive"),
@@ -24,8 +26,6 @@ local pedal_classes = {
   include("lib/ui/pedals/bitcrusher"),
   include("lib/ui/pedals/wavefolder"),
   include("lib/ui/pedals/ring_modulator"),
-  include("lib/ui/pedals/pitch_shifter"),
-  include("lib/ui/pedals/pitch_shifter2"),
   include("lib/ui/pedals/sub_boost"),
   include("lib/ui/pedals/vibrato"),
   include("lib/ui/pedals/auto_wah"),
