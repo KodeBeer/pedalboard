@@ -34,6 +34,7 @@ Engine_Pedalboard : CroneEngine {
       OverdrivePedal,
       PhaserPedal,
       PitchShifterPedal,
+      PitchShifterPedal2,
       ReverbPedal,
       RingModulatorPedal,
       RingsPedal,
