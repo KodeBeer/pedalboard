@@ -35,6 +35,7 @@ Engine_Pedalboard : CroneEngine {
       PhaserPedal,
       PitchShifterPedal,
       PitchShifterPedal2,
+      PitchShifterPedal3,
       ReverbPedal,
       RingModulatorPedal,
       RingsPedal,
@@ -162,17 +163,13 @@ Engine_Pedalboard : CroneEngine {
       if (index > indexToRemove, { index = index - 1 });
     });
 
-    // Okay, enough edge cases. Now for the real insertion.
-    // Our inputs are always the bus at our target index
-    inL = buses[index].index;
-    inR = buses[index].index + 1;
-    // If there's pedals, we have to make a bus as our output to patch in to the existing pedals
-    // (if there's no pedals yet, there's already a bus at buses[1] waiting for us to use)
-    if (boardIds.size != 0, {
-      buses.insert(index + 1, Bus.audio(context.server, 2));
-    });
-    // Our output is the bus at index+1
-    out = buses[index + 1].index;
+    // Always have our inputs be the original input bus, as set up on line 88
+    inL = buses[0].index;
+    inR = buses[0].index + 1;
+    // Unlike the existing code, we never have to make a new bus or `buses.insert` anything
+    // And finally, our output is the bus at index 1
+    out = buses[1].index;
+    
     // We add ourselves after the prior pedal (or after the inputStage if there's no pedals yet)
     if (index == 0, {
       target = inputStage;
@@ -208,17 +205,7 @@ Engine_Pedalboard : CroneEngine {
     if (boardIds.size == 1, {
       this.buildNoPedalState;
     }, {
-      // Set the pedal (or output stage) after us to have our inputs as its new inputs
-      var inputBus = buses[index];
-      if (index == (boardIds.size - 1), {
-        outputStage.set(\inL, inputBus.index, \inR, inputBus.index + 1);
-      }, {
-        var nextPedal = pedalDetails[boardIds[index + 1]][\synth];
-        nextPedal.set(\inL, inputBus.index, \inR, inputBus.index + 1);
-      });
-      // Free up the bus we were using as an output
-      buses[index + 1].free;
-      buses.removeAt(index + 1);
+
     });
     if (shouldNotFree, {}, {
       pedalDetails[boardIds[index]][\synth].free;
