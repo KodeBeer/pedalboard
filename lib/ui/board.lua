@@ -14,6 +14,7 @@ local pedal_classes = {
   include("lib/ui/pedals/pitch_shifter"),
   include("lib/ui/pedals/pitch_shifter2"),
   include("lib/ui/pedals/pitch_shifter3"),
+  include("lib/ui/pedals/pitch_shifter4"),
   include("lib/ui/pedals/delay"),
   include("lib/ui/pedals/reverb"),
   include("lib/ui/pedals/overdrive"),
